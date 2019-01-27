@@ -1,0 +1,67 @@
+2
+1120
+640
+graphics/bgs/01.png
+1120
+640
+graphics/bgs/bg3.png
+2
+100 20
+38 37 39
+26 34
+graphics/characters/madeline/madelineSleepRight.png
+graphics/characters/madeline/madelineSleepLeft.png
+graphics/characters/madeline/madelineRunRight.png
+graphics/characters/madeline/madelineRunLeft.png
+graphics/characters/madeline/madelineJumpRight.png
+graphics/characters/madeline/madelineJumpLeft.png
+graphics/characters/madeline/madelineFallRight.png
+graphics/characters/madeline/madelineFallLeft.png
+150 40
+87 65 68
+26 34
+graphics/characters/badeline/badelineSleepRight.png
+graphics/characters/badeline/badelineSleepLeft.png
+graphics/characters/badeline/badelineRunRight.png
+graphics/characters/badeline/badelineRunLeft.png
+graphics/characters/badeline/badelineJumpRight.png
+graphics/characters/badeline/badelineJumpLeft.png
+graphics/characters/badeline/badelineFallRight.png
+graphics/characters/badeline/badelineFallLeft.png
+3
+0 500
+1104 48
+20 20
+graphics/blockTextures/dirtUp.png
+graphics/blockTextures/dirtDown.png
+graphics/blockTextures/dirtLeft.png
+graphics/blockTextures/dirtRight.png
+graphics/blockTextures/dirtUpRight.png
+graphics/blockTextures/dirtUpLeft.png
+graphics/blockTextures/dirtDownRight.png
+graphics/blockTextures/dirtDownLeft.png
+graphics/blockTextures/dirtBg.png
+0 300
+400 48
+20 20
+graphics/blockTextures/dirtUp.png
+graphics/blockTextures/dirtDown.png
+graphics/blockTextures/dirtLeft.png
+graphics/blockTextures/dirtRight.png
+graphics/blockTextures/dirtUpRight.png
+graphics/blockTextures/dirtUpLeft.png
+graphics/blockTextures/dirtDownRight.png
+graphics/blockTextures/dirtDownLeft.png
+graphics/blockTextures/dirtBg.png
+200 400
+300 48
+20 20
+graphics/blockTextures/dirtUp.png
+graphics/blockTextures/dirtDown.png
+graphics/blockTextures/dirtLeft.png
+graphics/blockTextures/dirtRight.png
+graphics/blockTextures/dirtUpRight.png
+graphics/blockTextures/dirtUpLeft.png
+graphics/blockTextures/dirtDownRight.png
+graphics/blockTextures/dirtDownLeft.png
+graphics/blockTextures/dirtBg.png
