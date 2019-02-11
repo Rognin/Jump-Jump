@@ -9,8 +9,19 @@ public class Hittable {
 	final public int HIT_NONE = 0;
 	int width, height;
 	double x, y;
+	boolean isBlockedUp, isBlockedDown, isBlockedLeft, isBlockedRight;
 
 	public static ArrayList<Hittable> hittables = new ArrayList<>();
+	public static ArrayList<Hittable> condidates = new ArrayList<>();
+	public static ArrayList<Hittable> removers = new ArrayList<>();
+
+	public static void addListener(Hittable x) {
+		condidates.add(x);
+	}
+	
+	public static void removeListener(Hittable x) {
+		removers.add(x);
+	}
 
 	public int hitTest(Hittable other) {
 		if (other.x <= x && other.x + other.width >= x + this.width) {

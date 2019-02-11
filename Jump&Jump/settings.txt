@@ -11,45 +11,37 @@ graphics/characters/madeline/madeline
 100 20
 38 37 39 40
 39 51
-8
+4
+24
+2000
+Sleep
 12
-RunRight
+1000
+Run
 1
-SleepLeft
-12
-RunRight
+1000
+Jump
 1
-RunLeft
-1
-JumpRight
-1
-JumpLeft
-1
-FallRight
-1
-FallLeft
+1000
+Fall
 badeline
 graphics/characters/badeline/badeline
 150 40
 87 65 68 83
 39 51
-8
+4
 1
-RunRight
+1000
+Sleep
 1
-SleepLeft
+1000
+Run
 1
-RunRight
+1000
+Jump
 1
-RunLeft
-1
-JumpRight
-1
-JumpLeft
-1
-FallRight
-1
-FallLeft
+1000
+Fall
 5
 0 550
 500 60
