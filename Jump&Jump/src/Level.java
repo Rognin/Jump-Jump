@@ -45,6 +45,7 @@ public class Level {
 			for (int j = 0; j < curASMaxNumber; j++) {
 				AnimationSequence curAS = new AnimationSequence();
 				curAS.duration = sc.nextInt();
+				curAS.lifeTime = sc.nextInt();
 				String CurASName = sc.next();
 				curAS.frames = new ArrayList<>();
 				for (int j2 = 0; j2 < curAS.duration; j2++) {
@@ -58,8 +59,7 @@ public class Level {
 				}
 				curASs.add(curAS);
 			}
-			rabbits.add(new NamedRabbit(curName, curX, curY, curUpKey, curLeftKey, curRightKey, curDownKey, curWidht,
-					curHeight, curASs));
+			rabbits.add(new NamedRabbit(curName, curX, curY, curUpKey, curLeftKey, curRightKey, curDownKey, curWidht, curHeight, curASs));
 		}
 		int m = sc.nextInt();
 		for (int i = 0; i < m; i++) {
@@ -93,9 +93,7 @@ public class Level {
 	}
 
 	public void update() throws IOException {
-		for (Rabbit kr : rabbits) {
-			kr.update();
-		}
+		Updatable.updateAll();
 	}
 
 }

@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-public class Rabbit extends Hittable implements Drawable {
+public class Rabbit extends Hittable implements Drawable, Updatable {
 
 	static double DVX = 5;
 	static int JUMPSPEED = -10;
@@ -26,21 +26,18 @@ public class Rabbit extends Hittable implements Drawable {
 	double vx, vy;
 	int upKey, leftKey, rightKey, downKey;
 	Color color;
-	boolean isBlockedUp, isBlockedDown, isBlockedLeft, isBlockedRight;
-	static int sleepRightASNumber = 0;
-	static int sleepLeftASNumber = 1;
-	static int runRightASNumber = 2;
-	static int runLeftASNumber = 3;
-	static int jumpRightASNumber = 4;
-	static int jumpLeftASNumber = 5;
-	static int fallRightASNumber = 6;
-	static int fallLeftASNumber = 7;
+//	boolean isBlockedUp, isBlockedDown, isBlockedLeft, isBlockedRight;
+	static int sleepASNumber = 0;
+	static int runASNumber = 1;
+	static int jumpASNumber = 2;
+	static int fallASNumber = 3;
 	String graphicsAdress;
 	BufferedImage im;
 	int direction;
 	DeathAnimation da;
 
 	ArrayList<AnimationSequence> aSs;
+	double k; // for proper image drawing
 
 	int score;
 	int aSChangeCounter = 0; // frames passed from last animationSequence change
@@ -62,18 +59,34 @@ public class Rabbit extends Hittable implements Drawable {
 
 		Drawable.drawables.add(this);
 		Hittable.hittables.add(this);
+		Updatable.updatables.add(this);
 	}
 
 	public void draw(Graphics2D g2d) {
 		Graphics g = (Graphics) g2d;
-		g.drawImage(im, (int) this.x, (int) this.y, this.width, this.height, null);
+//		this.imageWidth = im.getWidth() * 3;
+//		this.imageHeight = im.getHeight() * 3;
+		if (direction == 1) {
+			g.drawImage(im, (int) x + width / 2 - im.getWidth() * 3 / 2, (int) y + height - im.getHeight() * 3,
+					(int) x + width / 2 + im.getWidth() * 3 / 2, (int) y + height, 0, 0, im.getWidth(), im.getHeight(),
+					null);
+		} else {
+			g.drawImage(im, (int) x + width / 2 - im.getWidth() * 3 / 2, (int) y + height - im.getHeight() * 3,
+					(int) x + width / 2 + im.getWidth() * 3 / 2, (int) y + height, im.getWidth(), 0, 0, im.getHeight(),
+					null);
+		}
+//		if (direction == 1) {
+//			g.drawImage(im, (int) this.x, (int) this.y,this.width, this.height, null);
+//		} else {
+//			g.drawImage(im, (int) this.x + this.width, (int) this.y, this.width * -1, this.height, null);
+//		}
 	}
 
 	public void update() throws IOException {
 		isBlockedDown = isBlockedLeft = isBlockedRight = isBlockedUp = false;
 		vy += Level.GRAVITY;
 		for (Hittable h : hittables) {
-			if (h != this) {
+			if (h != this && !(h instanceof Star)) {
 				int res = this.hitTest(h);
 				switch (res) {
 				case HIT_DOWN:
@@ -83,10 +96,13 @@ public class Rabbit extends Hittable implements Drawable {
 				case HIT_UP:
 					isBlockedUp = true;
 					if (h.getClass() == this.getClass()) {
-						da = new DeathAnimation("graphics/characters/deathAnimation.gif");
+						da = new DeathAnimation();
 						da.x = this.x;
 						da.y = this.y;
 						da.cnt = 0;
+						for (int i = 0; i < 10; i++) {
+							Star s = new Star(x, y);
+						}
 						this.x = RESP_X;
 						this.y = RESP_Y;
 						((Rabbit) h).score++;
@@ -124,33 +140,33 @@ public class Rabbit extends Hittable implements Drawable {
 		if (isBlockedDown) {
 			if (direction == 0) {
 				if (vx < 0) {
-					asNumber = runLeftASNumber;
+					asNumber = runASNumber;
 				}
 				if (vx == 0) {
-					asNumber = sleepLeftASNumber;
+					asNumber = sleepASNumber;
 				}
 			}
 			if (direction == 1) {
 				if (vx > 0) {
-					asNumber = runRightASNumber;
+					asNumber = runASNumber;
 				}
 				if (vx == 0) {
-					asNumber = sleepRightASNumber;
+					asNumber = sleepASNumber;
 				}
 			}
 		} else {
 			if (vy >= 0) {
 				if (direction == 0) {
-					asNumber = fallLeftASNumber;
+					asNumber = fallASNumber;
 				} else {
-					asNumber = fallRightASNumber;
+					asNumber = fallASNumber;
 				}
 			}
 			if (vy < 0) {
 				if (direction == 0) {
-					asNumber = jumpLeftASNumber;
+					asNumber = jumpASNumber;
 				} else {
-					asNumber = jumpRightASNumber;
+					asNumber = jumpASNumber;
 //					this.im = ImageIO.read(new File(jumpRight));
 				}
 
@@ -158,12 +174,15 @@ public class Rabbit extends Hittable implements Drawable {
 		}
 
 		curAS = aSs.get(asNumber);
-		int delay = 1000 / curAS.duration;
+		int delay = curAS.lifeTime / curAS.duration;
 		aSFrameNumber = aSChangeCounter / delay % curAS.duration;
-		this.im = curAS.frames.get(aSFrameNumber);
-		if (aSFrameNumber == 0 && aSChangeCounter > 1000) {
+		if (aSFrameNumber == 0 && aSChangeCounter > curAS.lifeTime) {
 			aSChangeCounter = 0;
 		}
+		this.im = curAS.frames.get(aSFrameNumber);
+
+//		if (aSChangeCounter == 0)
+//			aSFrameNumber = 0;
 
 		aSChangeCounter += 20;
 
